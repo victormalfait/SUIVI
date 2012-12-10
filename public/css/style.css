@@ -1,0 +1,241 @@
+
+/*************LAYOUT***********/
+body{
+	font-family: arial, sans-serif;
+	background: #2C3B63;
+}
+
+#container{
+	width:980px;
+	border: 5px solid #7DB4B5;
+	margin:50px auto 0 auto;
+	background: #E0EFF1;
+
+}
+
+ #fade {
+    display: none;
+    background: #000;
+    position: fixed; left: 0; top: 0;
+    width: 100%; height: 100%;
+    opacity: 0.5;
+    z-index: 10;
+}
+
+header{
+	margin:10px;
+}
+
+#entete{
+	width:400px;
+	border: 5px solid #7DB4B5;
+	display: inline-table;
+	text-align: center;
+	background: #f4f4f4;
+}
+#connexion{
+	display: inline-table;
+	width: 130px;
+	margin-left: 400px;
+	vertical-align: top;
+}
+
+#page{
+	margin:10px;
+	border: 5px solid #7DB4B5;
+	background: #f4f4f4;
+}
+
+/*************INDEX*************/
+
+.liste-projet-all table{
+	width:100%;
+}
+
+.liste-projet-all h2{
+	margin-left: 10px;
+}
+
+.liste-projet-all tr{
+	height: 40px;
+}
+
+/************LOGIN**************/
+
+.login{
+	font-size: 0.800em;
+	border: 5px solid #7DB4B5;
+	margin :0;
+	padding:10px 0 10px 0;
+	width:130px;
+	background: #f4f4f4;
+	text-align: center;
+}
+
+.login input[type="text"], .login input[type="password"]{
+	width: 100px;
+}
+
+.login input[type="submit"]{
+	width:100px;
+	font-size: 0.800em;
+}
+
+.login ul{
+	margin: 0px;
+	padding: 0px 10px 0px 10px;
+}
+
+#identifier-label{
+	display: none;
+}
+
+#identifier{
+	margin: 10px 0 0 0;
+}
+
+/*************SUIVI CHEF************/
+
+.suivi-projet-chef table{
+	width:100%;
+}
+
+.suivi-projet-chef tr{
+	height: 40px;
+}
+
+.bouton-ajout{
+	margin:10px;
+}
+
+.bouton-ajout button,
+.delete-projet{
+	width:100px;
+	height: 30px;
+	border:2px solid #19B4B5;
+	background: #7DB4B5;
+	color: #fff;
+	font-size: 1em;
+	border-radius: 5px;
+}
+
+/***********TACHE**********/
+
+/*bouton changement mois/semaine*/
+.calendrier-type{
+	text-align:right;
+}
+
+.calendrier-type ul{
+	margin-right: 20px;
+	margin-bottom: 0px;
+}
+
+.calendrier-type ul li{
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.calendrier-type ul li a{
+	text-decoration: none;
+}
+
+.bouton-calendrier-type{
+	border:3px solid #19B4B5;
+	background: #7DB4B5;
+	border-bottom: 0px;
+	border-radius: 5px 5px 0 0;
+	color: #000;
+	padding: 10px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.bouton-calendrier-type:hover{
+	border:3px solid #7DB4B5;
+	border-bottom: 0px;
+	background: #FFF4B5;
+	color: #000;
+}
+
+/*calendrier*/
+#calendar_table{
+	border: 5px solid #19B4B5;
+	width: 100%;
+}
+
+#calendar_table  td{
+	padding: 0;
+	border: 1px solid #19B4B5;
+
+}
+
+#calendar_table th{
+	background: #7DB4B5;
+	border: 1px solid #19B4B5;
+	color: #fff;
+}
+
+#calendar_table tr{
+	height: 36px;
+}
+
+#calendar_table .calendrier-evenement a{
+	text-decoration: none;
+	color:#fff;
+}
+
+#calendar_table .calendrier-evenement a:hover{
+	font-weight: bold;
+}
+
+.jour{
+	background: #7DB4B5;
+	border-bottom: 1px solid #19B4B5;
+	margin:0;
+	width: 90px;
+	height: 36px;
+	line-height: 36px;
+	display: block;
+	text-align: center;
+}
+
+.calendrier-evenement{
+	background: #2C3B63;
+	border: 3px solid #7DB4B5;
+	border-radius: 5px;
+	color: #fff;
+	text-align: center;
+}
+
+
+.ajout{
+	display: none;
+	float: left;
+	position: absolute;
+	width:550px;
+	height: 450px;
+	background: #1F1F1F;
+	z-index: 11;
+	color: #fff;
+	top:200px;
+	left:300px;
+}
+
+/********ADMIN*********/
+
+.liste-identite{
+	text-align: center;
+}
+
+.identite{
+	border:1px solid black;
+	margin: 20px auto;
+	width: 320px;
+	text-align: center;
+}
+
+.identite ul{
+	margin: 0;
+	padding: 0;
+}

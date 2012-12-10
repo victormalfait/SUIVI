@@ -1,0 +1,17 @@
+<div class="liste-projet-all">
+	<h2>Liste des projets :</h2>
+	<table border=1>
+		<tr>
+			<th>Nom du projet</th><th>Désignation</th><th>Date début</th><th>Date fin</th><th>Chef de projet</th>
+		</tr>
+		<?php foreach ($this->result as $value) {
+			echo "<tr>
+					<td><a href=".$this->baseUrl('tache/index/id/').$value['idProjet'].">".$value['nomprojet']."</td>
+					<td>".$value['description_projet']."</td>
+					<td>".date("d/m/Y",$value['date_debut'])."</td>
+					<td>".date("d/m/Y",$value['date_fin'])."</td>
+					<td>".$value['login_user']."</td>
+				</tr>";
+		}?>
+	</table>
+</div>

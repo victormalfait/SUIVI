@@ -1,0 +1,75 @@
+    <script>
+        $(function() {
+            $( "#dialog-form" ).dialog({
+                autoOpen: false, height: 550, width: 750, modal: true,
+                buttons: {
+                    Fermer: function() {$( this ).dialog( "close" );}
+                },
+                close: function() {allFields.val( "" ).removeClass( "ui-state-error" );}
+            });
+            $( ".create-projet" )
+                .click(function() {$( "#dialog-form" ).dialog( "open" );});
+        });
+        $(function() {
+            $( "#dialog-confirm" ).dialog({
+                autoOpen: false, height:240, modal: true,
+                buttons: {
+                    "Supprimer": function() {$("#formulaire").submit();$( this ).dialog( "close" );},
+                    Annuler: function() { $( this ).dialog( "close" );}
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <?php echo $this->action('enregistrement', 'suivi'); ?>
+    <div class="bouton-ajout">
+        <a href="#?editvol" rel="popup_tache_" class="rouleau"><button class="create-projet">Add</button></a>
+    </div>
+    
+
+    <div id="dialog-confirm" title="Supprimer le projet ?"></div>
+
+    <div class="suivi-projet-chef">
+        <table border=1>
+            <tr>
+                <th>Nom du projet</th>
+                <th>Désignation</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Chef de projet</th>
+            </tr>
+            <?php foreach ($this->result as $value) {
+                $count = 0;
+                $class = "";
+                $tableTache = new TTache;
+                $tacheRequest = $tableTache->select()->from(array('t'=>'tache'),array('t.tache_idProjet','t.etat_tache'))
+                                                     ->where('t.tache_idProjet ='.$value['idProjet']);       
+                $tache = $tableTache->fetchAll($tacheRequest);
+                foreach ($tache as $key){
+                    if($key['etat_tache'] != "Fait")
+                        $count++;
+                    if($count==0)
+                        $class = "grey";
+                }
+                
+                echo "<tr style='background:".$class.";'>
+                        <td>
+                            <a href=".$this->baseUrl('tache/index/id/').$value['idProjet'].">".$value['nomprojet']."</a>
+                        </td>
+                        <td>".$value['description_projet']."</td>
+                        <td>".date("d/m/Y",$value['date_debut'])."</td>
+                        <td>".date("d/m/Y",$value['date_fin'])."</td>
+                        <td>".$value['nom_user']."</td>";?>
+                        <td>
+                            <form id="formulaire" method="post" action="<?php echo $this->baseUrl('suivi/supprimer');?>">
+                                <input type="hidden" name="idduprojet" value="<?php echo $value['idProjet'];?>">
+                                <button onclick="$('#dialog-confirm').dialog('open'); return false;" class='delete-projet'>Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php
+            }?>
+        </table>
+    </div>

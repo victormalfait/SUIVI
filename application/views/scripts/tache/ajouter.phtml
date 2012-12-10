@@ -1,0 +1,17 @@
+<?php
+echo '<script>
+    $(function() {
+        $( ".datepickerdeb'.$this->idTache.'" ).datepicker({dateFormat :"dd-mm-yy", minDate: 0});
+        $(".datepickerdeb'.$this->idTache.'").change(function(){
+            var d = $(".datepickerdeb'.$this->idTache.'").datepicker("getDate");
+        
+            var n = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+     
+            $(".datepickerfin'.$this->idTache.'").datepicker({dateFormat :"dd-mm-yy", minDate: n});
+        });
+    });
+</script>';?>
+
+<div id="popup_tache_<?php echo $this->idTache;?>" style="display:none" class="ajout pop-up-block">
+	<?php echo $this->form; ?>
+</div>

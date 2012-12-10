@@ -1,0 +1,11 @@
+<?php
+if (Zend_Auth::getInstance()->hasIdentity()){
+	echo '<div class="login">';
+	$membre = Zend_Auth::getInstance()->getIdentity();
+	echo 'Bonjour '.$membre->nom_user;
+	echo "<a href=".$this->baseUrl('index/logout')."><button>Déconnexion</button></a></div>";
+}else{
+	echo $this->login;	
+}
+
+?> 

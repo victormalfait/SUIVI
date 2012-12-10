@@ -1,0 +1,105 @@
+ <script>
+ $(function() {
+            $( "#dialog-confirm" ).dialog({
+                autoOpen: false, height:240, modal: true,
+                buttons: {
+                    "Supprimer": function() {$("#formulaire").submit();$( this ).dialog( "close" );},
+                    Annuler: function() { $( this ).dialog( "close" );}
+                }
+            });
+        });
+</script>
+<div id="dialog-confirm" title="Supprimer le projet ?"></div>
+<?php
+    echo $this->action('ajouter', 'tache', null,array('idProjet' => $this->param)); 
+if(Zend_Auth::getInstance()->hasIdentity())
+    echo '<div class="bouton-ajout"><a href="#?editvol" rel="popup_tache_" class="rouleau"><button>Add</button></a></div>';
+?>
+<div id="calendrier">
+    <div class="calendrier-type">
+        <ul>
+            <li><a href="<?php echo $this->baseUrl('tache/index/id/').$this->param.'/type/'?>"><div class="bouton-calendrier-type">Semaine</div></a></li>
+            <li><a href="<?php echo $this->baseUrl('tache/index/id/').$this->param.'/type/1'?>"><div class="bouton-calendrier-type">Mois</div></a></li>
+        </ul>
+    </div>
+    <table id="calendar_table">
+        <thead>
+            <tr>
+                <th></th>
+                    <?php
+                    if(!$this->type){
+                        $semaine_debut=$this->semaine_debut-(7*24*60*60); 
+                        $semaine_fin=$this->semaine_fin-(7*24*60*60);
+                        for($i=0;$i<8;$i++)
+                        {
+                            $semaine_debut=$semaine_debut+(7*24*60*60);
+                            $semaine_fin=$semaine_fin+(7*24*60*60);?>
+                            <th>
+                                <?php
+                                echo 'Semaine du '.date('d/m/y',$semaine_debut).'<br/>au '.date('d/m/y',$semaine_fin); 
+                                ?> 
+                            </th>
+                        <?}
+                    }else{?>
+                        <th>
+                            <?php echo date('M',$this->mois_prec);?>
+                        </th>
+                        <th>
+                            <?php echo date('M',$this->mois);?>
+                        </th>
+                        <th>
+                            <?php echo date('M',$this->mois_plus_un);?>
+                        </th>
+                        <th>
+                            <?php echo date('M',$this->mois_plus_deux);?>
+                        </th>
+            </tr>
+        </thead>
+        <tbody>        
+            <tr>
+                <td>
+                    <?php 
+                    $jour=array('lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche');
+                    for ($i=0; $i < 7; $i++) { ?>
+                        <div class="jour">
+                            <?php echo $jour[$i];?>
+                        </div>
+                    <?}?>
+                </td>
+                <?php foreach($this->table_content as $content):?>
+                    <td valign="top">
+                        <?php $size_use = 0;
+                        for($i=0;$i<$content['nb'];$i++) {
+                            $content_current_size = $content['events'][$i]['size'];
+                            
+                            $etat = $content['events'][$i]['etat'];
+                            $padding_top=$content['events'][$i]['qhstart']-$size_use;
+                            $size_use+=$padding_top+36;?>
+                            <div class="calendrier-evenement" style="height:<?php echo $content_current_size;?>px;margin-top:<?php echo $padding_top;?>px;">
+
+                                <?php if(Zend_Auth::getInstance()->hasIdentity()){
+                                    echo'<a href="#?editvol" rel="popup_tache_'.$content['events'][$i]['id'].'" class="rouleau">';
+                                }
+                                echo '<span>'.$etat.'</span>';
+                                if(Zend_Auth::getInstance()->hasIdentity()){
+                                    echo'</a><br/>';?>
+                                <span>
+                                    <form id="formulaire" method="post" action="<?php echo $this->baseUrl('tache/supprimer');?>">
+                                        <input type="hidden" name="idProjet" value="<?php echo $this->param;?>">
+                                        <input type="hidden" name="idTache" value="<?php echo $content['events'][$i]['id'];?>">
+                                        <a onclick="$('#dialog-confirm').dialog('open'); return false;" class='delete-projet'><img src="<?php echo $this->baseUrl('img/corbeille.gif'); ?>" /></a>
+                                    </form>
+                                </span>
+                            </div>
+                            <div>
+                                <?php echo $this->action('ajouter', 'tache', null, array('idProjet'=> $this->param, 'idTache'=> $content['events'][$i]['id'])); ?>
+                            </div>
+                        <?php }} ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

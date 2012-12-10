@@ -1,0 +1,56 @@
+
+<?php echo $this->action('ajouter', 'admin'); ?>
+    <div class="bouton-ajout">
+        <a href="#?editvol" rel="popup_tache_" class="rouleau"><button class="create-projet">Ajout</button></a>
+    </div>
+<div class="liste-identite">
+	<?php
+		foreach ($this->paginator as $value) {
+
+			$user = $this->tableUser->find($value['idUser'])->current();
+			$projet=$user->findDependentRowSet('TProjet');?>
+			<div class="identite">
+				<ul>
+					<li>
+			 			<span><h2><?php echo $value['nom_user'];?></h2></span>
+			 		</li>
+			 		<li>
+			 			<span>Login :</span>
+			 			<span><?php echo $value['login_user'];?></span>
+			 		</li>
+			 		<li>
+			 			<span>Role :</span>
+			 			<span><?php echo $value['role'];?></span>
+			 		</li>
+			 		<li>
+			 			<span>Date dernière connexion :</span>
+			 			<span><?php echo date("d-m-y",$value['date_derniere_connexion']);?></span>
+			 		</li>
+			 		<li>
+			 			<span>Nombre de projets :</span>
+			 			<span><?php echo count($projet);?></span>
+			 		</li>
+			 		<li>
+                        <a href="#?supprimeuser" rel="popup_user_<?php echo $value['idUser'];?>" class="rouleau"><button class="create-projet">Supprimer</button></a>
+			 		</li>
+			 	</ul>
+			 	<div id="popup_user_<?php echo $value['idUser'];?>" style="display:none" class="ajout pop-up-block">
+			 		<ul>
+			 			<li>
+			 				<a href="<?php echo $this->baseUrl('admin/supprimer/id/'.$value['idUser']);?>">
+			 					<button class="create-projet">Supprimer</button>
+			 				</a>
+			 			</li>
+			 			<li>
+			 				<a>
+			 					<button class="create-projet close">Annuler</button>
+			 				</a>
+			 			</li>
+			 		</ul>
+			 	</div>
+			 </div>
+		<?php } 
+		echo $this->paginationControl($this->paginator, 'All', 'searchPaginator.phtml');?>
+
+</div>
+
